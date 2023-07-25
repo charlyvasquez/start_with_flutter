@@ -577,44 +577,63 @@ class _HomePageHypersoftWorkFlowState extends State<HomePageHypersoftWorkFlow> {
                                     ),
                                   ),
                                 ),
-                                Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 90.0,
-                                    ),
-                                    Transform(
-                                      alignment: Alignment.center,
-                                      transform: Matrix4.rotationY(math.pi),
-                                      child: Transform(
-                                        alignment: Alignment.center,
-                                        transform:
-                                            Matrix4.rotationX(math.pi / 4),
-                                        child: const Icon(
-                                          Icons.style,
-                                          color: Color(0xFF808080),
-                                          size: 100,
-                                        ),
-                                      ),
-                                    ),
-                                    const Text(
-                                      'Seleccione una opción para ver los filtros de',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 2.0,
-                                    ),
-                                    const Text(
-                                      'actividades de usuarios.',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    )
-                                  ],
-                                )
+                                labelChanged == 'Seleccione'
+                                    ? Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 90.0,
+                                          ),
+                                          Transform(
+                                            alignment: Alignment.center,
+                                            transform:
+                                                Matrix4.rotationY(math.pi),
+                                            child: Transform(
+                                              alignment: Alignment.center,
+                                              transform: Matrix4.rotationX(
+                                                  math.pi / 4),
+                                              child: const Icon(
+                                                Icons.style,
+                                                color: Color(0xFF808080),
+                                                size: 100,
+                                              ),
+                                            ),
+                                          ),
+                                          const Text(
+                                            'Seleccione una opción para ver los filtros de',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 2.0,
+                                          ),
+                                          const Text(
+                                            'actividades de usuarios.',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          ItemForActividadesDeUsuarios(
+                                            labelLeading: 'Categorías',
+                                            isFirstItem: true,
+                                          ),
+                                          ItemForActividadesDeUsuarios(
+                                              labelLeading: 'Procesos'),
+                                          ItemForActividadesDeUsuarios(
+                                              labelLeading: 'N° Version'),
+                                          ItemForActividadesDeUsuarios(
+                                              labelLeading: 'Actividad'),
+                                          ItemForActividadesDeUsuarios(
+                                              labelLeading: 'Sistema'),
+                                        ],
+                                      )
+                                // Text(labelChanged)
                               ],
                             )
                           : const SizedBox.shrink()
@@ -694,6 +713,62 @@ enum Opciones {
   iniciados,
   supervisadas,
   pendientesPorAsignar
+}
+
+class ItemForActividadesDeUsuarios extends StatefulWidget {
+  const ItemForActividadesDeUsuarios(
+      {super.key, required this.labelLeading, this.isFirstItem = false});
+  final String labelLeading;
+  final bool isFirstItem;
+
+  @override
+  State<ItemForActividadesDeUsuarios> createState() =>
+      _ItemForActividadesDeUsuariosState();
+}
+
+class _ItemForActividadesDeUsuariosState
+    extends State<ItemForActividadesDeUsuarios> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: widget.isFirstItem ? 6.0 : 0.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          color: const Color(0xFFFEFEFE),
+          height: 40.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.labelLeading,
+                    style: TextStyle(color: Colors.black.withOpacity(0.7)),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Seleccione',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.grey,
+                        size: 16.0,
+                      )
+                    ],
+                  )
+                ],
+              ),
+              Divider()
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class SelectAnOption extends StatefulWidget {
