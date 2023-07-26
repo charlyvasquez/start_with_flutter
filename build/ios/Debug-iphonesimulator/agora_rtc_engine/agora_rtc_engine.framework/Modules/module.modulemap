@@ -1,0 +1,6 @@
+framework module agora_rtc_engine {
+  umbrella header "agora_rtc_engine-umbrella.h"
+
+  export *
+  module * { export * }
+}
